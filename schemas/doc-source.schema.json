@@ -1,0 +1,167 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Documentation Source Configuration",
+    "description": "Configuration for a documentation source to be crawled",
+    "type": "object",
+    "required": ["name", "baseUrl", "indexUrl", "defaultLanguage", "selectors", "patterns"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Human-readable name of the documentation source"
+      },
+      "baseUrl": {
+        "type": "string",
+        "format": "uri",
+        "description": "Base URL for the documentation"
+      },
+      "indexUrl": {
+        "type": "string",
+        "format": "uri",
+        "description": "URL where crawling should begin - typically an index or contents page"
+      },
+      "version": {
+        "type": "string",
+        "description": "Version of the documentation being crawled"
+      },
+      "defaultLanguage": {
+        "type": "string",
+        "description": "Default language for code examples"
+      },
+      "selectors": {
+        "type": "object",
+        "required": ["navigationLinks", "contentLinks", "title", "name", "description", "examples"],
+        "properties": {
+          "navigationLinks": {
+            "type": "string",
+            "description": "CSS selector for primary navigation links"
+          },
+          "subNavigationLinks": {
+            "type": "string",
+            "description": "CSS selector for secondary navigation links"
+          },
+          "contentLinks": {
+            "type": "string",
+            "description": "CSS selector for links to actual documentation entries"
+          },
+          "title": {
+            "type": "string",
+            "description": "CSS selector for the title of a documentation entry"
+          },
+          "name": {
+            "type": "string",
+            "description": "CSS selector for the name of the entry"
+          },
+          "description": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Array of CSS selectors for description paragraphs"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "type": "string" },
+                {
+                  "type": "object",
+                  "required": ["selector"],
+                  "properties": {
+                    "selector": { "type": "string" },
+                    "language": { "type": "string" },
+                    "languageAttr": { "type": "string" },
+                    "languageClass": { "type": "string" }
+                  }
+                }
+              ]
+            }
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "type": "string" },
+                {
+                  "type": "object",
+                  "required": ["selector"],
+                  "properties": {
+                    "selector": { "type": "string" },
+                    "nameSelector": { "type": "string" },
+                    "typeSelector": { "type": "string" },
+                    "descriptionSelector": { "type": "string" },
+                    "defaultSelector": { "type": "string" },
+                    "optionalPattern": { "type": "string" },
+                    "namePattern": { "type": "string" },
+                    "typePattern": { "type": "string" },
+                    "defaultPattern": { "type": "string" },
+                    "restPattern": { "type": "string" }
+                  }
+                }
+              ]
+            }
+          },
+          "returns": {
+            "type": "string",
+            "description": "CSS selector for return value information"
+          },
+          "type": {
+            "type": "string",
+            "description": "CSS selector to help determine the type of entry"
+          },
+          "namespace": {
+            "type": "string",
+            "description": "CSS selector for namespace/module information"
+          },
+          "signature": {
+            "type": "string",
+            "description": "CSS selector for the full signature"
+          },
+          "methods": {
+            "type": "object",
+            "required": ["container", "name"],
+            "properties": {
+              "container": { "type": "string" },
+              "name": { "type": "string" },
+              "description": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "signature": { "type": "string" },
+              "isStatic": { "type": "string" },
+              "isPrivate": { "type": "string" },
+              "decorators": { "type": "string" }
+            }
+          },
+          "properties": {
+            "type": "object",
+            "required": ["container", "name"],
+            "properties": {
+              "container": { "type": "string" },
+              "name": { "type": "string" },
+              "description": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "type": { "type": "string" },
+              "defaultValue": { "type": "string" },
+              "isStatic": { "type": "string" },
+              "isPrivate": { "type": "string" },
+              "decorators": { "type": "string" }
+            }
+          }
+        }
+      },
+      "patterns": {
+        "type": "object",
+        "required": ["isClass", "isMethod", "isFunction", "isModule", "isProperty", "nameExtract"],
+        "properties": {
+          "isClass": { "type": "string" },
+          "isMethod": { "type": "string" },
+          "isFunction": { "type": "string" },
+          "isModule": { "type": "string" },
+          "isProperty": { "type": "string" },
+          "nameExtract": { "type": "string" },
+          "idExtract": { "type": "string" },
+          "signatureClean": { "type": "string" }
+        }
+      }
+    }
+  }

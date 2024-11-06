@@ -1,0 +1,64 @@
+{
+    "$schema": "../schemas/doc-source.schema.json",
+    "name": "Python Documentation",
+    "baseUrl": "https://docs.python.org/3/",
+    "indexUrl": "https://docs.python.org/3/py-modindex.html",
+    "version": "3.13",
+    "defaultLanguage": "python",
+    "selectors": {
+        "navigationLinks": ".modindextable > tbody > tr > td > a",
+        "subNavigationLinks": ".sphinxsidebarwrapper > div:first-of-type > ul > li > a",
+        "contentLinks": "dl.py",
+        "title": "h1",
+        "name": "dt.sig > .sig-name > .pre",
+        "description": ["dd > p"],
+        "examples": [
+            {
+                "selector": "div.highlight-python3 > .highlight",
+                "language": "python"
+            },
+            {
+                "selector": "div.highlight-shell > .highlight",
+                "language": "shell"
+            },
+            {
+                "selector": "div[class^='highlight-'] > .highlight",
+                "languageClass": "/highlight-(\\w+)/"
+            },
+            {
+                "selector": "pre[data-language]",
+                "languageAttr": "data-language"
+            }
+        ],
+        "parameters": [
+            {
+                "selector": "dt.sig:first-of-type > .sig-param",
+                "nameSelector": ".n > .pre",
+                "defaultSelector": ".default_value",
+                "restPattern": "/^\\*+/"
+            }
+        ],
+        "properties": {
+            "container": "dl.class > dd > dl.attribute",
+            "name": "dt.sig > .sig-name > .pre",
+            "description": ["dd > p"]
+        },
+        "methods": {
+            "container": "dl.class > dd > dl.method",
+            "name": "dt.sig > .sig-name > .pre",
+            "description": ["dd > p"]
+        },
+        "namespace": "h1 > code.py > .pre",
+        "signature": "dt.sig"
+    },
+    "patterns": {
+        "isClass": "/class\\s+\\w+/",
+        "isMethod": "/def\\s+\\w+/",
+        "isFunction": "/^[a-z_]+\\(/",
+        "isModule": "/^module\\s+\\w+/",
+        "isProperty": "/@property/",
+        "nameExtract": "/(?:class|def|)\\s*([a-zA-Z_]\\w*)\\s*(?:\\(|$)/",
+        "idExtract": "/id=\"([^\"]+)\"/",
+        "signatureClean": "/(?:@\\w+\\s*\\n)*([^\\n¶]+)¶?/"
+    }
+} 
